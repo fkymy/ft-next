@@ -39,3 +39,15 @@ When we run `next dev` the next time, Next.js will start looking for any `.ts` o
 Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
 
 A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
+
+
+Setup for Project:
+
+1. Add eslint, prettier
+
+https://dev.to/onygami/eslint-and-prettier-for-react-apps-bonus-next-js-and-typescript-3e46
+
+2. Add tailwindcss
+
+https://medium.com/better-programming/how-to-set-up-next-js-with-tailwind-css-b93ccd2d4164
+

@@ -32,4 +32,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# my things
 note.secret
+cursus_users.ts
