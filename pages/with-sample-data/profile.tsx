@@ -8,19 +8,6 @@ type Props = {
   profile: Profile;
 };
 
-const ProfileWithSampleData = ({ profile }: Props) => (
-  <Layout title="with-sample-data">
-    <p>{profile.login}</p>
-    <p>{profile.displayname}</p>
-    <p>{profile.email}</p>
-    <p>{profile.pool_month}</p>
-    <p>{profile.pool_year}</p>
-    <Link href="/with-sample-data">
-      <a>← Go back</a>
-    </Link>
-  </Layout>
-);
-
 export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
   const dev = process.env.NODE_ENV !== 'production';
   const protocol = dev ? 'http' : req.headers['x-forwarded-proto'];
@@ -35,5 +22,18 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
   const data = await res.json();
   return { props: data };
 };
+
+const ProfileWithSampleData = ({ profile }: Props) => (
+  <Layout title="with-sample-data">
+    <p>{profile.login}</p>
+    <p>{profile.displayname}</p>
+    <p>{profile.email}</p>
+    <p>{profile.pool_month}</p>
+    <p>{profile.pool_year}</p>
+    <Link href="/with-sample-data">
+      <a>← Go back</a>
+    </Link>
+  </Layout>
+);
 
 export default ProfileWithSampleData;

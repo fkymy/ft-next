@@ -20,6 +20,11 @@ const PatternsPage = () => (
       </Link>
     </div>
     <div>
+      <Link href="/with-vanilla-fetch">
+        <a>with-vanilla-fetch</a>
+      </Link>
+    </div>
+    <div className="mt-3">
       <a href="/api/with_sample_data">API: with_sample_data</a>
     </div>
     <div>

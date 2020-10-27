@@ -10,6 +10,24 @@ type Props = {
   pageCount: number;
 };
 
+export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
+  // const items: CursusUser[] = await getSampleData();
+  const dev = process.env.NODE_ENV !== 'production';
+  const protocol = dev ? 'http' : req.headers['x-forwarded-proto'];
+  const host = dev ? 'localhost:3000' : req.headers['x-forwarded-host'];
+  const page = query.page || 1;
+  const limit = query.limit || 100;
+  console.log(`getServerSideProps with query: ${JSON.stringify(query)}`);
+  console.log(
+    `getServerSideProps calling: ${protocol}://${host}/api/with_sample_data?page=${page}&limit=${limit}`
+  );
+
+  const res = await fetch(`${protocol}://${host}/api/with_sample_data?page=${page}&limit=${limit}`);
+  console.log(`getServerSideProps res.status: ${res.status}`);
+  const data = await res.json();
+  return { props: data };
+};
+
 const IndexWithSampleData = ({ items, pageCount, page }: Props) => (
   <Layout title="with-sample-data">
     <h1>/with-sample-data</h1>
@@ -62,23 +80,5 @@ const IndexWithSampleData = ({ items, pageCount, page }: Props) => (
     </nav>
   </Layout>
 );
-
-export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
-  // const items: CursusUser[] = await getSampleData();
-  const dev = process.env.NODE_ENV !== 'production';
-  const protocol = dev ? 'http' : req.headers['x-forwarded-proto'];
-  const host = dev ? 'localhost:3000' : req.headers['x-forwarded-host'];
-  const page = query.page || 1;
-  const limit = query.limit || 100;
-  console.log(`getServerSideProps with query: ${JSON.stringify(query)}`);
-  console.log(
-    `getServerSideProps calling: ${protocol}://${host}/api/with_sample_data?page=${page}&limit=${limit}`
-  );
-
-  const res = await fetch(`${protocol}://${host}/api/with_sample_data?page=${page}&limit=${limit}`);
-  console.log(`getServerSideProps res.status: ${res.status}`);
-  const data = await res.json();
-  return { props: data };
-};
 
 export default IndexWithSampleData;
