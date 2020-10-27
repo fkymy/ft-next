@@ -29,10 +29,11 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
-
+.env.production
 # vercel
 .vercel
 
-# my things
-note.secret
-cursus_users.ts
+# mine
+sample-data.ts
+.secret
+.env
