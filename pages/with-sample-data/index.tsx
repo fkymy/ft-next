@@ -17,7 +17,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
   const host = dev ? 'localhost:3000' : req.headers['x-forwarded-host'];
   const page = query.page || 1;
   const limit = query.limit || 100;
-  console.log(`getServerSideProps with query: ${JSON.stringify(query)}`);
   console.log(
     `getServerSideProps calling: ${protocol}://${host}/api/with_sample_data?page=${page}&limit=${limit}`
   );
@@ -31,14 +30,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
 const IndexWithSampleData = ({ items, pageCount, page }: Props) => (
   <Layout title="with-sample-data">
     <h1>/with-sample-data</h1>
-    <h2>
-      https://api.intra.42.fr/v2/cursus/21/cursus_users?filter[campus_id]=26&sort=-blackholed_at&page[size]=100
-    </h2>
     <Link href="/patterns">
       <a>Go back to patterns</a>
     </Link>
     <div>
-      {/* <p>items.length {items.length}</p> */}
       <p>pageCount {pageCount}</p>
       <p>page {page}</p>
     </div>
@@ -49,7 +44,7 @@ const IndexWithSampleData = ({ items, pageCount, page }: Props) => (
             <div>
               <img
                 className="object-cover h-32 w-32"
-                src={`https://cdn.intra.42.fr/users/${item.user.login}.jpg`}
+                src={`https://cdn.intra.42.fr/users/small_${item.user.login}.jpg`}
               />
             </div>
             <div>

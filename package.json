@@ -11,6 +11,7 @@
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc.js"
   },
   "dependencies": {
+    "@types/simple-oauth2": "^4.1.0",
     "eslint": "^7.12.0",
     "eslint-config-prettier": "^6.14.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
@@ -21,6 +22,7 @@
     "prettier": "^2.1.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "simple-oauth2": "^4.1.0",
     "swr": "^0.3.6"
   },
   "devDependencies": {
