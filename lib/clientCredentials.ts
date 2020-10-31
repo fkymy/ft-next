@@ -1,44 +1,37 @@
 import { ClientCredentials } from 'simple-oauth2';
-import { Token } from 'simple-oauth2'
 import fs from 'fs';
 import path from 'path';
 
-import { BASE_URL } from '@utils/constants';
-import { AccessToken } from '@interfaces/Token'
+import { API_URL } from '@utils/constants';
 
+// Globals (Fake Persistence)
 const jsonDir = path.join(process.cwd(), 'utils');
+let store: string;
 
-export const getTokenOnce = async (): Promise<AccessToken> => {
-  const uid = process.env.CLIENT_ID;
-  const secret = process.env.CLIENT_SECRET;
+const client = new ClientCredentials({
+  client: {
+    id: process.env["CLIENT_ID"] as string,
+    secret: process.env["CLIENT_SECRET"] as string,
+  },
+  auth: {
+    tokenHost: API_URL,
+    tokenPath: '/oauth/token',
+  }
+});
 
-  const res = await fetch(`${BASE_URL}/oauth/token`, {
-    method: 'POST',
-    body: `grant_type=client_credentials&client_id=${uid}&client_secret=${secret}`,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    }
-  });
-  const token: AccessToken = await res.json();
-  return token;
-};
-
-let tokenJSON: string;
-
-const persistAccessTokenJSON = async (json: string) => {
-  console.log(`persisting access token json: ${json}`);
-  // Use a file as persistence
+const storeToken = async (accessToken: string) => {
+  console.log(`persisting access token json: ${accessToken}`);
   // const fullPath = path.join(jsonDir, 'dontdothis.json');
   // fs.writeFileSync(fullPath, json);
-  tokenJSON = json;
+  store = accessToken;
 }
 
-const getPersistedAccessTokenJSON = async () => {
-  console.log(`getting persisted access token json: ${tokenJSON}`);
+const getStoredToken = async () => {
+  console.log(`getting persisted access token json: ${store}`);
   // const fullPath = path.join(jsonDir, 'dontdothis.json');
   // const fileContent = fs.readFileSync(fullPath, 'utf8');
   // console.log('getPersistedAccessTokenJSON: ', fileContent);
-  return tokenJSON;
+  return store;
 }
 
 export const initClient = () => {
@@ -48,7 +41,7 @@ export const initClient = () => {
       secret: process.env["CLIENT_SECRET"] as string,
     },
     auth: {
-      tokenHost: BASE_URL,
+      tokenHost: API_URL,
       tokenPath: '/oauth/token',
     }
   });
@@ -64,31 +57,30 @@ const newToken = async (client: ClientCredentials) => {
   // todo: how do you catch failure in async func?
   const accessToken = await client.getToken(tokenParams);
   console.log('newToken fetched: ', JSON.stringify(accessToken));
-  await (persistAccessTokenJSON(JSON.stringify(accessToken)));
+  await (storeToken(JSON.stringify(accessToken)));
   return accessToken;
 }
 
 export const getToken = async () => {
-  let token: Token;
-  const client = initClient();
+  let token: string;
 
-  const accessTokenJSONString = await getPersistedAccessTokenJSON();
-  if (accessTokenJSONString === undefined) {
-    console.log('accessTokenJSONString is undefined');
+  const storedToken = await getStoredToken();
+  if (storedToken === undefined) {
+    console.log('storedToken is undefined');
     token = await newToken(client).then(accessToken => {
-      return accessToken.token;
+      return accessToken.token.access_token;
     });
   } else {
-    let accessToken = client.createToken(JSON.parse(accessTokenJSONString))
+    let accessToken = client.createToken(JSON.parse(storedToken))
     if (accessToken.expired()) {
       console.log('accessToken is expired');
       token = await newToken(client).then(accessToken => {
-        return accessToken.token;
+        return accessToken.token.access_token;
       })
     }
     else {
       console.log('accessToken is available');
-      token = accessToken.token;
+      token = accessToken.token.access_token;
     }
   }
   return token;

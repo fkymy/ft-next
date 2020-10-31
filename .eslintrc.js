@@ -30,6 +30,8 @@ module.exports = {
   rules: {
     'prettier/prettier': ['error', {}, { usePrettierrc: true }], // Use our .prettierrc file as source
     'react/react-in-jsx-scope': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
     'jsx-a11y/anchor-is-valid': [
       'error',
       {
@@ -39,5 +41,8 @@ module.exports = {
       },
     ],
   },
-  plugins: ['simple-import-sort'],
+  plugins: [
+    'simple-import-sort',
+    'react-hooks'
+  ],
 };

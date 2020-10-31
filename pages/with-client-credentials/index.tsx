@@ -2,39 +2,28 @@ import Link from 'next/link';
 import { GetServerSideProps } from 'next';
 import Layout from '@components/Layout';
 import { CursusUser } from '@interfaces/Cursus';
-import { Profile } from '@interfaces/User';
-import { BASE_URL, CAMPUS_ID, CURSUS_ID } from '@utils/constants';
+import { API_URL, CAMPUS_ID, CURSUS_ID } from '@utils/constants';
 import { getToken } from '@lib/clientCredentials';
-
-type AccessToken = {
-  access_token: string,
-  token_type: string,
-  expires_in: number,
-  scope: string,
-  created_at: number
-}
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const size = query.limit || 100;
   const page = query.page || 1;
 
-  const url = `${BASE_URL}/v2/cursus/${CURSUS_ID}/cursus_users` +
+  const url = `${API_URL}/v2/cursus/${CURSUS_ID}/cursus_users` +
     `?filter[campus_id]=${CAMPUS_ID}` +
     `&sort=-blackholed_at` +
     `&page[size]=${size}` + 
     `&page[number]=${page}`;
 
-  const res = await getToken().then(token => {
-    console.log('getServerSideProps token: ', token);
+  const res = await getToken().then(access_token => {
     return fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `Bearer ${token.access_token}`
+        'Authorization': `Bearer ${access_token}`
       }
     });
   });
-  console.log(`getServerSideProps res ${JSON.stringify(res.headers)}`)
   const items: CursusUser[] = await res.json();
 
   return {

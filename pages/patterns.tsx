@@ -24,6 +24,11 @@ const PatternsPage = () => (
         <a>with-client-credentials</a>
       </Link>
     </div>
+    <div>
+      <Link href="/with-authorization-code">
+        <a>with-authorization-code</a>
+      </Link>
+    </div>
     <div className="mt-3">
       <a href="/api/with_sample_data">API: with_sample_data</a>
     </div>

@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 
-import { BASE_URL } from '@utils/constants';
+import { API_URL } from '@utils/constants';
 import { Profile } from '@interfaces/User';
 import Layout from '@components/Layout';
 import { getToken } from '@lib/clientCredentials';
@@ -13,18 +13,20 @@ type Params = {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  if (!params) {
+    throw new Error('how can there be no params here?');
+  }
+
   const login = params.login;
-  const res = await getToken().then(token => {
-    console.log('getServerSideProps token: ', token);
-    return fetch(`${BASE_URL}/v2/users/${login}`, {
+  const res = await getToken().then(aceess_token => {
+    return fetch(`${API_URL}/v2/users/${login}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `Bearer ${token.access_token}`
+        'Authorization': `Bearer ${aceess_token}`
       }
     });
   });
-  console.log(`getServerSideProps res ${JSON.stringify(res.headers)}`)
   const profile: Profile = await res.json();
 
   return {
