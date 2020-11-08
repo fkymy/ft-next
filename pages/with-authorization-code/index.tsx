@@ -14,23 +14,24 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const page = query.page || 1;
 
   if (isAuthorized) {
-    const url = `${API_URL}/v2/cursus/${CURSUS_ID}/cursus_users` +
+    const url =
+      `${API_URL}/v2/cursus/${CURSUS_ID}/cursus_users` +
       `?filter[campus_id]=${CAMPUS_ID}` +
       `&sort=-blackholed_at` +
-      `&page[size]=${size}` + 
+      `&page[size]=${size}` +
       `&page[number]=${page}`;
-  
-    const res = await getToken().then(access_token => {
+
+    const res = await getToken().then((access_token) => {
       return fetch(url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': `Bearer ${access_token}`
-        }
+          Authorization: `Bearer ${access_token}`,
+        },
       });
     });
 
-    console.log(`getServerSideProps res ${JSON.stringify(res.headers)}`)
+    console.log(`getServerSideProps res ${JSON.stringify(res.headers)}`);
     items = await res.json();
   } else {
     console.log('NO ACCESS TOKEN!');
@@ -41,10 +42,10 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       isAuthorized,
       authorizeURL,
       items,
-      page
-    }
-  }
-}
+      page,
+    },
+  };
+};
 
 function Login(props: any) {
   return (
@@ -54,10 +55,10 @@ function Login(props: any) {
   );
 }
 
-function List({ items, page }: { items: CursusUser[], page: number }) {
+function List({ items, page }: { items: CursusUser[]; page: number }) {
   return (
     <div>
-      <Link href='/with-authorization-code/me'>
+      <Link href="/with-authorization-code/me">
         <a>Me</a>
       </Link>
       <ul className="space-y-5">
@@ -101,10 +102,10 @@ function List({ items, page }: { items: CursusUser[], page: number }) {
 }
 
 type Props = {
-  isAuthorized: boolean,
-  authorizeURL: string,
-  items: CursusUser[],
-  page: number
+  isAuthorized: boolean;
+  authorizeURL: string;
+  items: CursusUser[];
+  page: number;
 };
 
 function IndexWithAuthorizationCode({ isAuthorized, authorizeURL, items, page }: Props) {
@@ -115,13 +116,10 @@ function IndexWithAuthorizationCode({ isAuthorized, authorizeURL, items, page }:
         <a>Go back to patterns</a>
       </Link>
       <div>
-        {isAuthorized
-          ? <List items={items} page={page} />
-          : <Login authorizeURL={authorizeURL} />
-        }
+        {isAuthorized ? <List items={items} page={page} /> : <Login authorizeURL={authorizeURL} />}
       </div>
-    </Layout>  
+    </Layout>
   );
-};
-  
+}
+
 export default IndexWithAuthorizationCode;

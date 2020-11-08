@@ -6,8 +6,8 @@ import { initToken } from '@lib/authorizationCode';
 const redirect: Redirect = {
   href: '/with-authorization-code',
   asPath: '/with-authorization-code',
-  permanent: false
-}
+  permanent: false,
+};
 
 export default browserRedirect(redirect);
 
@@ -22,4 +22,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSideP
   }
 
   return serverRedirect(ctx, redirect);
-}
+};

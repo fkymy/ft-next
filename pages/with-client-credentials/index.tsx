@@ -9,19 +9,20 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const size = query.limit || 100;
   const page = query.page || 1;
 
-  const url = `${API_URL}/v2/cursus/${CURSUS_ID}/cursus_users` +
+  const url =
+    `${API_URL}/v2/cursus/${CURSUS_ID}/cursus_users` +
     `?filter[campus_id]=${CAMPUS_ID}` +
     `&sort=-blackholed_at` +
-    `&page[size]=${size}` + 
+    `&page[size]=${size}` +
     `&page[number]=${page}`;
 
-  const res = await getToken().then(access_token => {
+  const res = await getToken().then((access_token) => {
     return fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `Bearer ${access_token}`
-      }
+        Authorization: `Bearer ${access_token}`,
+      },
     });
   });
   const items: CursusUser[] = await res.json();
@@ -29,15 +30,15 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   return {
     props: {
       items,
-      page
-    }
+      page,
+    },
   };
-}
+};
 
 type Props = {
-  items: CursusUser[],
-  page: number,
-}
+  items: CursusUser[];
+  page: number;
+};
 
 const IndexWithClientCredentials = ({ items, page }: Props) => (
   <Layout title="42API">

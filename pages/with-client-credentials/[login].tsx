@@ -8,36 +8,36 @@ import { getToken } from '@lib/clientCredentials';
 
 type Params = {
   params: {
-    login: string
-  }
+    login: string;
+  };
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   if (!params) {
-    throw new Error('how can there be no params here?');
+    return { props: {} };
   }
 
   const login = params.login;
-  const res = await getToken().then(aceess_token => {
+  const res = await getToken().then((aceess_token) => {
     return fetch(`${API_URL}/v2/users/${login}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `Bearer ${aceess_token}`
-      }
+        Authorization: `Bearer ${aceess_token}`,
+      },
     });
   });
   const profile: Profile = await res.json();
 
   return {
     props: {
-      profile
-    }
-  }
-}
+      profile,
+    },
+  };
+};
 
 type Props = {
-  profile: Profile
+  profile: Profile;
 };
 
 const ProfileWithClientCredentials = ({ profile }: Props) => (

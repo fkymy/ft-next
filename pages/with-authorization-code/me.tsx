@@ -12,21 +12,21 @@ import { Redirect, serverRedirect } from 'utils/redirects';
 const redirect: Redirect = {
   href: '/with-authorization-code',
   asPath: '/with-authorization-code',
-  permanent: false
-}
+  permanent: false,
+};
 
 export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const isAuthorized = hasToken();
   let profile: Profile | undefined;
 
   if (isAuthorized) {
-    const res = await getToken().then(access_token => {
+    const res = await getToken().then((access_token) => {
       return fetch(`${API_URL}/v2/me`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': `Bearer ${access_token}`
-        }
+          Authorization: `Bearer ${access_token}`,
+        },
       });
     });
     profile = await res.json();
@@ -34,17 +34,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSideP
     return {
       props: {
         isAuthorized,
-        profile
-      }
-    }
+        profile,
+      },
+    };
   } else {
     return serverRedirect(ctx, redirect);
   }
-}
+};
 
 type Props = {
-  isAuthorized: boolean,
-  profile: Profile
+  isAuthorized: boolean;
+  profile: Profile;
 };
 
 const MeWithAuthorizationCode = ({ isAuthorized, profile }: Props) => {
@@ -69,7 +69,7 @@ const MeWithAuthorizationCode = ({ isAuthorized, profile }: Props) => {
           <a>← Go back</a>
         </Link>
       </Layout>
-    )
+    );
   }
 };
 
