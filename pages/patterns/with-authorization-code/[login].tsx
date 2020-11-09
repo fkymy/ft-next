@@ -16,8 +16,8 @@ type Params = {
 };
 
 const redirect: Redirect = {
-  href: '/with-authorization-code',
-  asPath: '/with-authorization-code',
+  href: '/patterns/with-authorization-code',
+  asPath: '/patterns/with-authorization-code',
   permanent: false,
 };
 
@@ -76,7 +76,7 @@ const ProfileWithAuthorizationCode = ({ isAuthorized, profile }: Props) => {
         <p>{profile.email}</p>
         <p>{profile.pool_month}</p>
         <p>{profile.pool_year}</p>
-        <Link href="/with-authorization-code">
+        <Link href="/patterns/with-authorization-code">
           <a>← Go back</a>
         </Link>
       </Layout>

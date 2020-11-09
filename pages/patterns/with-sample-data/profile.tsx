@@ -30,7 +30,7 @@ const ProfileWithSampleData = ({ profile }: Props) => (
     <p>{profile.email}</p>
     <p>{profile.pool_month}</p>
     <p>{profile.pool_year}</p>
-    <Link href="/with-sample-data">
+    <Link href="/patterns/with-sample-data">
       <a>← Go back</a>
     </Link>
   </Layout>

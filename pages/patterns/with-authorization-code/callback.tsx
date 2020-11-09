@@ -4,8 +4,8 @@ import { browserRedirect, serverRedirect, Redirect } from '@utils/redirects';
 import { initToken } from '@lib/authorizationCode';
 
 const redirect: Redirect = {
-  href: '/with-authorization-code',
-  asPath: '/with-authorization-code',
+  href: '/patterns/with-authorization-code',
+  asPath: '/patterns/with-authorization-code',
   permanent: false,
 };
 

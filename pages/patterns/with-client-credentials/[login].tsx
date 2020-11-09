@@ -47,7 +47,7 @@ const ProfileWithClientCredentials = ({ profile }: Props) => (
     <p>{profile.email}</p>
     <p>{profile.pool_month}</p>
     <p>{profile.pool_year}</p>
-    <Link href="/with-client-credentials">
+    <Link href="/patterns/with-client-credentials">
       <a>← Go back</a>
     </Link>
   </Layout>

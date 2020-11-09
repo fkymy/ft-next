@@ -42,7 +42,7 @@ type Props = {
 
 const IndexWithClientCredentials = ({ items, page }: Props) => (
   <Layout title="42API">
-    <h1>/with-client-credentials</h1>
+    <h1>/patterns/with-client-credentials</h1>
     <Link href="/patterns">
       <a>Go back to patterns</a>
     </Link>
@@ -66,7 +66,7 @@ const IndexWithClientCredentials = ({ items, page }: Props) => (
                 <p>level: {item.level}</p>
                 <p>begin_at: {item.begin_at}</p>
                 <p>blackholed_at: {item.blackholed_at}</p>
-                <Link href={`/with-client-credentials/${item.user.login}`}>
+                <Link href={`/patterns/with-client-credentials/${item.user.login}`}>
                   <a className="text-blue-400">Check Profile</a>
                 </Link>
               </div>
@@ -76,12 +76,12 @@ const IndexWithClientCredentials = ({ items, page }: Props) => (
       </ul>
       <nav>
         {page > 1 && (
-          <Link href={`/with-client-credentials?page=${page - 1}&limit=100`}>
+          <Link href={`/patterns/with-client-credentials?page=${page - 1}&limit=100`}>
             <a>Previous</a>
           </Link>
         )}
         {page < 5 && (
-          <Link href={`/with-client-credentials?page=${+page + +1}&limit=100`}>
+          <Link href={`/patterns/with-client-credentials?page=${+page + +1}&limit=100`}>
             <a>Next</a>
           </Link>
         )}

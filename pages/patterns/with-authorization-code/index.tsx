@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { GetServerSideProps } from 'next';
 import Layout from '@components/Layout';
 
-import { getAuthorizeURL, hasToken, getToken, revokeToken } from 'lib/authorizationCode';
+import { getAuthorizeURL, hasToken, getToken } from 'lib/authorizationCode';
 import { API_URL, CAMPUS_ID, CURSUS_ID } from '@utils/constants';
 import { CursusUser } from '@interfaces/Cursus';
 
@@ -58,7 +58,7 @@ function Login(props: any) {
 function List({ items, page }: { items: CursusUser[]; page: number }) {
   return (
     <div>
-      <Link href="/with-authorization-code/me">
+      <Link href="/patterns/with-authorization-code/me">
         <a>Me</a>
       </Link>
       <ul className="space-y-5">
@@ -77,7 +77,7 @@ function List({ items, page }: { items: CursusUser[]; page: number }) {
                 <p>level: {item.level}</p>
                 <p>begin_at: {item.begin_at}</p>
                 <p>blackholed_at: {item.blackholed_at}</p>
-                <Link href={`/with-authorization-code/${item.user.login}`}>
+                <Link href={`/patterns/with-authorization-code/${item.user.login}`}>
                   <a className="text-blue-400">Check Profile</a>
                 </Link>
               </div>
@@ -87,12 +87,12 @@ function List({ items, page }: { items: CursusUser[]; page: number }) {
       </ul>
       <nav>
         {page > 1 && (
-          <Link href={`/with-authorization-code?page=${page - 1}&limit=100`}>
+          <Link href={`/patterns/with-authorization-code?page=${page - 1}&limit=100`}>
             <a>Previous</a>
           </Link>
         )}
         {page < 5 && (
-          <Link href={`/with-authorization-code?page=${+page + +1}&limit=100`}>
+          <Link href={`/patterns/with-authorization-code?page=${+page + +1}&limit=100`}>
             <a>Next</a>
           </Link>
         )}
@@ -111,7 +111,7 @@ type Props = {
 function IndexWithAuthorizationCode({ isAuthorized, authorizeURL, items, page }: Props) {
   return (
     <Layout title="42API">
-      <h1>/with-authorization-code</h1>
+      <h1>/patterns/with-authorization-code</h1>
       <Link href="/patterns">
         <a>Go back to patterns</a>
       </Link>

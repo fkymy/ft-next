@@ -10,13 +10,13 @@ let store: string;
 
 const client = new ClientCredentials({
   client: {
-    id: process.env["CLIENT_ID"] as string,
-    secret: process.env["CLIENT_SECRET"] as string,
+    id: process.env['CLIENT_ID'] as string,
+    secret: process.env['CLIENT_SECRET'] as string,
   },
   auth: {
     tokenHost: API_URL,
     tokenPath: '/oauth/token',
-  }
+  },
 });
 
 const storeToken = async (accessToken: string) => {
@@ -24,7 +24,7 @@ const storeToken = async (accessToken: string) => {
   // const fullPath = path.join(jsonDir, 'dontdothis.json');
   // fs.writeFileSync(fullPath, json);
   store = accessToken;
-}
+};
 
 const getStoredToken = async () => {
   console.log(`getting persisted access token json: ${store}`);
@@ -32,34 +32,34 @@ const getStoredToken = async () => {
   // const fileContent = fs.readFileSync(fullPath, 'utf8');
   // console.log('getPersistedAccessTokenJSON: ', fileContent);
   return store;
-}
+};
 
 export const initClient = () => {
   const client = new ClientCredentials({
     client: {
-      id: process.env["CLIENT_ID"] as string,
-      secret: process.env["CLIENT_SECRET"] as string,
+      id: process.env['CLIENT_ID'] as string,
+      secret: process.env['CLIENT_SECRET'] as string,
     },
     auth: {
       tokenHost: API_URL,
       tokenPath: '/oauth/token',
-    }
+    },
   });
 
   return client;
-}
+};
 
 const newToken = async (client: ClientCredentials) => {
   const tokenParams = {
-    scope: 'public'
+    scope: 'public',
   };
 
   // todo: how do you catch failure in async func?
   const accessToken = await client.getToken(tokenParams);
   console.log('newToken fetched: ', JSON.stringify(accessToken));
-  await (storeToken(JSON.stringify(accessToken)));
+  await storeToken(JSON.stringify(accessToken));
   return accessToken;
-}
+};
 
 export const getToken = async () => {
   let token: string;
@@ -67,21 +67,20 @@ export const getToken = async () => {
   const storedToken = await getStoredToken();
   if (storedToken === undefined) {
     console.log('storedToken is undefined');
-    token = await newToken(client).then(accessToken => {
+    token = await newToken(client).then((accessToken) => {
       return accessToken.token.access_token;
     });
   } else {
-    let accessToken = client.createToken(JSON.parse(storedToken))
+    const accessToken = client.createToken(JSON.parse(storedToken));
     if (accessToken.expired()) {
       console.log('accessToken is expired');
-      token = await newToken(client).then(accessToken => {
+      token = await newToken(client).then((accessToken) => {
         return accessToken.token.access_token;
-      })
-    }
-    else {
+      });
+    } else {
       console.log('accessToken is available');
       token = accessToken.token.access_token;
     }
   }
   return token;
-}
+};

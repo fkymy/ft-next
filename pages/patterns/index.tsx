@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Layout from '../components/Layout';
+import Layout from '../../components/Layout';
 
 const PatternsPage = () => (
   <Layout title="Patterns">
@@ -10,22 +10,22 @@ const PatternsPage = () => (
       </Link>
     </div>
     <div>
-      <Link href="/with-sample-data">
+      <Link href="/patterns/with-sample-data">
         <a>with-sample-data</a>
       </Link>
     </div>
     <div>
-      <Link href="/with-sample-data-swr">
+      <Link href="/patterns/with-sample-data-swr">
         <a>with-sample-data-swr</a>
       </Link>
     </div>
     <div>
-      <Link href="/with-client-credentials">
+      <Link href="/patterns/with-client-credentials">
         <a>with-client-credentials</a>
       </Link>
     </div>
     <div>
-      <Link href="/with-authorization-code">
+      <Link href="/patterns/with-authorization-code">
         <a>with-authorization-code</a>
       </Link>
     </div>
