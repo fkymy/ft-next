@@ -9,19 +9,20 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const size = query.limit || 100;
   const page = query.page || 1;
 
-  const url = `${API_URL}/v2/cursus/${CURSUS_ID}/cursus_users` +
+  const url =
+    `${API_URL}/v2/cursus/${CURSUS_ID}/cursus_users` +
     `?filter[campus_id]=${CAMPUS_ID}` +
     `&sort=-blackholed_at` +
-    `&page[size]=${size}` + 
+    `&page[size]=${size}` +
     `&page[number]=${page}`;
 
-  const res = await getToken().then(access_token => {
+  const res = await getToken().then((access_token) => {
     return fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `Bearer ${access_token}`
-      }
+        Authorization: `Bearer ${access_token}`,
+      },
     });
   });
   const items: CursusUser[] = await res.json();
@@ -29,19 +30,19 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   return {
     props: {
       items,
-      page
-    }
+      page,
+    },
   };
-}
+};
 
 type Props = {
-  items: CursusUser[],
-  page: number,
-}
+  items: CursusUser[];
+  page: number;
+};
 
 const IndexWithClientCredentials = ({ items, page }: Props) => (
   <Layout title="42API">
-    <h1>/with-client-credentials</h1>
+    <h1>/patterns/with-client-credentials</h1>
     <Link href="/patterns">
       <a>Go back to patterns</a>
     </Link>
@@ -65,7 +66,7 @@ const IndexWithClientCredentials = ({ items, page }: Props) => (
                 <p>level: {item.level}</p>
                 <p>begin_at: {item.begin_at}</p>
                 <p>blackholed_at: {item.blackholed_at}</p>
-                <Link href={`/with-client-credentials/${item.user.login}`}>
+                <Link href={`/patterns/with-client-credentials/${item.user.login}`}>
                   <a className="text-blue-400">Check Profile</a>
                 </Link>
               </div>
@@ -75,12 +76,12 @@ const IndexWithClientCredentials = ({ items, page }: Props) => (
       </ul>
       <nav>
         {page > 1 && (
-          <Link href={`/with-client-credentials?page=${page - 1}&limit=100`}>
+          <Link href={`/patterns/with-client-credentials?page=${page - 1}&limit=100`}>
             <a>Previous</a>
           </Link>
         )}
         {page < 5 && (
-          <Link href={`/with-client-credentials?page=${+page + +1}&limit=100`}>
+          <Link href={`/patterns/with-client-credentials?page=${+page + +1}&limit=100`}>
             <a>Next</a>
           </Link>
         )}

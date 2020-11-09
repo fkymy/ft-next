@@ -17,11 +17,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
   const host = dev ? 'localhost:3000' : req.headers['x-forwarded-host'];
   const page = query.page || 1;
   const limit = query.limit || 100;
-  console.log(
-    `getServerSideProps calling: ${protocol}://${host}/api/with_sample_data?page=${page}&limit=${limit}`
-  );
 
-  const res = await fetch(`${protocol}://${host}/api/with_sample_data?page=${page}&limit=${limit}`);
+  const res = await fetch(`${protocol}://${host}/api/patterns/with_sample_data?page=${page}&limit=${limit}`);
   console.log(`getServerSideProps res.status: ${res.status}`);
   const data = await res.json();
   return { props: data };
@@ -29,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
 
 const IndexWithSampleData = ({ items, pageCount, page }: Props) => (
   <Layout title="with-sample-data">
-    <h1>/with-sample-data</h1>
+    <h1>/patterns/with-sample-data</h1>
     <Link href="/patterns">
       <a>Go back to patterns</a>
     </Link>
@@ -53,7 +50,7 @@ const IndexWithSampleData = ({ items, pageCount, page }: Props) => (
               <p>level: {item.level}</p>
               <p>begin_at: {item.begin_at}</p>
               <p>blackholed_at: {item.blackholed_at}</p>
-              <Link href={`/with-sample-data/profile?id=${item.id}`}>
+              <Link href={`/patterns/with-sample-data/profile?id=${item.id}`}>
                 <a className="text-blue-400">Check Profile</a>
               </Link>
             </div>
@@ -63,12 +60,12 @@ const IndexWithSampleData = ({ items, pageCount, page }: Props) => (
     </ul>
     <nav>
       {page > 1 && (
-        <Link href={`/with-sample-data?page=${page - 1}&limit=100`}>
+        <Link href={`/patterns/with-sample-data?page=${page - 1}&limit=100`}>
           <a>Previous</a>
         </Link>
       )}
       {page < pageCount && (
-        <Link href={`/with-sample-data?page=${page + 1}&limit=100`}>
+        <Link href={`/patterns/with-sample-data?page=${page + 1}&limit=100`}>
           <a>Next</a>
         </Link>
       )}

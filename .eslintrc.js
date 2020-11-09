@@ -41,8 +41,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    'simple-import-sort',
-    'react-hooks'
-  ],
+  plugins: ['simple-import-sort', 'react-hooks'],
 };

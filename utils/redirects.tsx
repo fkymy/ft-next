@@ -5,9 +5,9 @@ import { GetServerSidePropsContext } from 'next';
 // https://github.com/vercel/next.js/discussions/11281
 
 export type Redirect = {
-  href: string,
-  asPath: string,
-  permanent: boolean
+  href: string;
+  asPath: string;
+  permanent: boolean;
 };
 
 export const browserRedirect = (redirect: Redirect) => {
@@ -18,7 +18,7 @@ export const browserRedirect = (redirect: Redirect) => {
     }
 
     render() {
-      return <p>Redirecting...</p>
+      return <p>Redirecting...</p>;
     }
   };
 };
@@ -35,7 +35,7 @@ export const serverRedirect = (ctx: GetServerSidePropsContext, redirect: Redirec
 
   if (!referer) {
     res.writeHead(permanent ? 301 : 307, { Location: asPath });
-    res.end()
+    res.end();
   }
 
   return { props: {} };
