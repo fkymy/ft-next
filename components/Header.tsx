@@ -1,8 +1,8 @@
-import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/client';
-import styles from 'styles/Header.module.css';
+import styles from './header.module.css';
+import ActiveLink from '@components/active-link';
 
-const Header = () => {
+function Header() {
   const [ session, loading ] = useSession();
 
   return (
@@ -15,46 +15,45 @@ const Header = () => {
           {!session && <>
             <span className={styles.notSignedInText}>このサイトを観覧するには42生としてログインする必要があります。</span>
             <a
-                href={`/api/auth/signin`}
-                className={styles.buttonPrimary}
-                onClick={(e) => {
-                  e.preventDefault()
-                  signIn('42')
-                }}
-              >
-                ログイン
-              </a>
+              href={`/api/auth/signin`}
+              className={styles.buttonPrimary}
+              onClick={(e) => {
+                e.preventDefault()
+                signIn('42')
+              }}
+            >
+              ログイン
+            </a>
           </>}
           {session && <>
             {session.user.image && <span style={{backgroundImage: `url(${session.user.image})` }} className={styles.avatar}/>}
             <span className={styles.signedInText}>
               <small>{session.user.name}</small><br/>
               <strong>{session.user.displayName}</strong>
-              </span>
+            </span>
             <a
-                href={`/api/auth/signout`}
-                className={styles.button}
-                onClick={(e) => {
-                  e.preventDefault()
-                  signOut()
-                }}
-              >
-                ログアウト
-              </a>
+              href={`/api/auth/signout`}
+              className={styles.button}
+              onClick={(e) => {
+                e.preventDefault()
+                signOut()
+              }}
+            >
+              ログアウト
+            </a>
           </>}
         </p>
       </div>
       <nav>
-        <ul className="list-none mt-4 mb-8">
-          <li className="inline-block mr-4 text-blue-700 hover:text-blue-900"><Link href="/"><a>Home</a></Link></li>
-          <li className="inline-block mr-4 text-blue-700 hover:text-blue-900"><Link href="/api-examples"><a>API1</a></Link></li>
-          <li className="inline-block mr-4 text-blue-700 hover:text-blue-900"><Link href="/api-examples2"><a>API2</a></Link></li>
-          <li className="inline-block mr-4 text-blue-700 hover:text-blue-900"><Link href="/patterns"><a>Patterns</a></Link></li>
-          {/* <li className="inline-block mr-4 text-blue-700 hover:text-blue-900"><Link href="/sheets1"><a>Sheets1</a></Link></li> */}
+        <ul className={styles.navItems}>
+          <li className={styles.navItem}><ActiveLink href="/"><a>Home</a></ActiveLink></li>
+          <li className={styles.navItem}><ActiveLink href="/api-example-1"><a>API1</a></ActiveLink></li>
+          <li className={styles.navItem}><ActiveLink href="/api-example-2"><a>API2</a></ActiveLink></li>
+          <li className={styles.navItem}><ActiveLink href="/patterns"><a>Patterns</a></ActiveLink></li>
         </ul>
       </nav>
     </header>
   );
-};
+}
 
 export default Header;
