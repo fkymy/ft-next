@@ -17,23 +17,23 @@ const client = new AuthorizationCode({
 const FT_EXPIRES_IN_SECONDS = 7200;
 const FT_EXPIRATION_WINDOW_IN_SECONDS = 300;
 
-export const calcExpiresAt = (expiresIn: number = FT_EXPIRES_IN_SECONDS) => {
+export function calcExpiresAt(expiresIn: number = FT_EXPIRES_IN_SECONDS) {
   return Date.now() + expiresIn * 1000;
 }
 
-export const calcExpiresIn = (expiresAt: number) => {
+export function calcExpiresIn(expiresAt: number) {
   return expiresAt - (Date.now() + FT_EXPIRATION_WINDOW_IN_SECONDS * 1000);
 }
 
-export const ftTokenIsExpired = (expiresAt: number) => {
+export function ftTokenIsExpired(expiresAt: number) {
   return calcExpiresIn(expiresAt) <= 0;
 }
 
-export const ftTokenRefresh = async (
+export async function ftTokenRefresh(
   accessToken: string,
   refreshToken: string,
   expiresIn: string
-) => {
+) {
   const obj = {
     "access_token": accessToken,
     "token_type": "Bearer",

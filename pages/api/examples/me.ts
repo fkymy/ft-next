@@ -3,7 +3,7 @@ import { getSession } from 'next-auth/client';
 import { API_URL } from 'utils/constants'
 const secret = process.env.SECRET;
 
-export default async (req, res) => {
+export default async function handler(req, res) {
   const session = await getSession({ req });
 
   if (!session) {
@@ -23,6 +23,10 @@ export default async (req, res) => {
   });
 
   const profile = await ftRes.json();
+
+  if (ftRes.status !== 200) {
+    throw new Error('Failed to fetch API')
+  }
 
   res.send(JSON.stringify(profile, null, 2));
 }
