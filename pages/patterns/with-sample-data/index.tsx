@@ -1,8 +1,9 @@
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import { CursusUser } from '@interfaces/Cursus';
-import Layout from '@components/Layout';
+import Layout from '@components/layout';
 
 type Props = {
   items: CursusUser[];
@@ -24,53 +25,58 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
   return { props: data };
 };
 
-const IndexWithSampleData = ({ items, pageCount, page }: Props) => (
-  <Layout title="with-sample-data">
-    <h1>/patterns/with-sample-data</h1>
-    <Link href="/patterns">
-      <a>Go back to patterns</a>
-    </Link>
-    <div>
-      <p>pageCount {pageCount}</p>
-      <p>page {page}</p>
-    </div>
-    <ul className="space-y-5">
-      {items.map((item) => (
-        <li key={item.id}>
-          <div className="flex flex-row space-x-4">
-            <div>
-              <img
-                className="object-cover h-32 w-32"
-                src={`https://cdn.intra.42.fr/users/small_${item.user.login}.jpg`}
-              />
+const IndexWithSampleData = ({ items, pageCount, page }: Props) => {
+  const router = useRouter();
+
+  return (
+    <Layout title="with-sample-data">
+      <h1>/patterns/with-sample-data</h1>
+      <Link href="/patterns">
+        <a>Go back to patterns</a>
+      </Link>
+      <div>
+        <p>pageCount {pageCount}</p>
+        <p>page {page}</p>
+        <p>{JSON.stringify(router.query)}</p>
+      </div>
+      <ul className="space-y-5">
+        {items.map((item) => (
+          <li key={item.id}>
+            <div className="flex flex-row space-x-4">
+              <div>
+                <img
+                  className="object-cover h-32 w-32"
+                  src={`https://cdn.intra.42.fr/users/small_${item.user.login}.jpg`}
+                />
+              </div>
+              <div>
+                <p>login: {item.user.login}</p>
+                <p>id: {item.id}</p>
+                <p>level: {item.level}</p>
+                <p>begin_at: {item.begin_at}</p>
+                <p>blackholed_at: {item.blackholed_at}</p>
+                <Link href={`/patterns/with-sample-data/profile?id=${item.id}`}>
+                  <a className="text-blue-400">Check Profile</a>
+                </Link>
+              </div>
             </div>
-            <div>
-              <p>login: {item.user.login}</p>
-              <p>id: {item.id}</p>
-              <p>level: {item.level}</p>
-              <p>begin_at: {item.begin_at}</p>
-              <p>blackholed_at: {item.blackholed_at}</p>
-              <Link href={`/patterns/with-sample-data/profile?id=${item.id}`}>
-                <a className="text-blue-400">Check Profile</a>
-              </Link>
-            </div>
-          </div>
-        </li>
-      ))}
-    </ul>
-    <nav>
-      {page > 1 && (
-        <Link href={`/patterns/with-sample-data?page=${page - 1}&limit=100`}>
-          <a>Previous</a>
-        </Link>
-      )}
-      {page < pageCount && (
-        <Link href={`/patterns/with-sample-data?page=${page + 1}&limit=100`}>
-          <a>Next</a>
-        </Link>
-      )}
-    </nav>
-  </Layout>
-);
+          </li>
+        ))}
+      </ul>
+      <nav>
+        {page > 1 && (
+          <Link href={`/patterns/with-sample-data?page=${page - 1}&limit=100`}>
+            <a>Previous</a>
+          </Link>
+        )}
+        {page < pageCount && (
+          <Link href={`/patterns/with-sample-data?page=${page + 1}&limit=100`}>
+            <a>Next</a>
+          </Link>
+        )}
+      </nav>
+    </Layout>
+  );
+};
 
 export default IndexWithSampleData;

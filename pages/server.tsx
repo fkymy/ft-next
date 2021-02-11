@@ -1,5 +1,5 @@
 import { useSession, getSession } from 'next-auth/client'
-import Layout from '../components/Layout'
+import Layout from '../components/layout'
 
 export default function Page() {
   // As this page uses Server Side Rendering, the `session` will be already

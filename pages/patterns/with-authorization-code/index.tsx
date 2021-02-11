@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { GetServerSideProps } from 'next';
-import Layout from '@components/Layout';
+import Layout from '@components/layout';
 
 import { getAuthorizeURL, hasToken, getToken } from 'lib/authorizationCode';
 import { API_URL, CAMPUS_ID, CURSUS_ID } from '@utils/constants';

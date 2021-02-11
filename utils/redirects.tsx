@@ -10,7 +10,7 @@ export type Redirect = {
   permanent: boolean;
 };
 
-export const browserRedirect = (redirect: Redirect) => {
+export function browserRedirect(redirect: Redirect) {
   return class Redirect extends Component {
     componenttDidMount() {
       const { href, asPath } = redirect;
@@ -21,9 +21,9 @@ export const browserRedirect = (redirect: Redirect) => {
       return <p>Redirecting...</p>;
     }
   };
-};
+}
 
-export const serverRedirect = (ctx: GetServerSidePropsContext, redirect: Redirect) => {
+export function serverRedirect(ctx: GetServerSidePropsContext, redirect: Redirect) {
   const req = ctx.req;
   const res = ctx.res;
   if (!req || !res) {
@@ -39,4 +39,4 @@ export const serverRedirect = (ctx: GetServerSidePropsContext, redirect: Redirec
   }
 
   return { props: {} };
-};
+}

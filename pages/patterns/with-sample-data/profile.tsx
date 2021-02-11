@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 
 import Link from 'next/link';
 import { Profile } from '@interfaces/User';
-import Layout from '@components/Layout';
+import Layout from '@components/layout';
 
 type Props = {
   profile: Profile;
@@ -14,10 +14,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
   const host = dev ? 'localhost:3000' : req.headers['x-forwarded-host'];
   console.log(`getServerSideProps with query: ${JSON.stringify(query)}`);
   console.log(
-    `getServerSideProps calling: ${protocol}://${host}/api/with_sample_data/profile?id=${query.id}`
+    `getServerSideProps calling: ${protocol}://${host}/api/patterns/with_sample_data/profile?id=${query.id}`
   );
 
-  const res = await fetch(`${protocol}://${host}/api/with_sample_data/profile?id=${query.id}`);
+  const res = await fetch(`${protocol}://${host}/api/patterns/with_sample_data/profile?id=${query.id}`);
   console.log(`getServerSideProps res.status: ${res.status}`);
   const data = await res.json();
   return { props: data };

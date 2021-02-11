@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { API_URL } from '@utils/constants';
 import { Profile } from '@interfaces/User';
-import Layout from '@components/Layout';
+import Layout from '@components/layout';
 import { getToken } from '@lib/clientCredentials';
 
 type Params = {

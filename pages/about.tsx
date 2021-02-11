@@ -1,16 +1,18 @@
 import Link from 'next/link';
-import Layout from '../components/Layout';
+import Layout from '../components/layout';
 
-const AboutPage = () => (
-  <Layout title="About">
-    <h1>About</h1>
-    <p>This is the about page</p>
-    <p>
-      <Link href="/">
-        <a>Go home</a>
-      </Link>
-    </p>
-  </Layout>
-);
+function AboutPage() {
+  return (
+    <Layout title="About">
+      <h1>About</h1>
+      <p>This is the about page</p>
+      <p>
+        <Link href="/">
+          <a>Go home</a>
+        </Link>
+      </p>
+    </Layout>
+  );
+}
 
 export default AboutPage;

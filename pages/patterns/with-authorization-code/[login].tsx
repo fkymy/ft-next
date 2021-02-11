@@ -5,7 +5,7 @@ import Router from 'next/router';
 
 import { API_URL } from 'utils/constants';
 import { Profile } from 'interfaces/User';
-import Layout from 'components/Layout';
+import Layout from '@components/layout';
 import { hasToken, getToken } from 'lib/authorizationCode';
 import { Redirect, serverRedirect } from 'utils/redirects';
 

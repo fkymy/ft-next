@@ -9,7 +9,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const session = await getSession({ req });
     if (!session) {
-      throw new Error('You must be sign in to view the protected content on this page.')
+      throw new Error('You must be signed in to view the protected content on this page.')
     }
   
     const token = await jwt.getToken({ req, secret }); 
