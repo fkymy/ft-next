@@ -71,9 +71,9 @@ const options = {
   // when an action is performed.
   callbacks: { 
     signIn: async (user, account, profile) => {
-      console.log('SIGNIN CALLBACK...');
+      // console.log('SIGNIN CALLBACK...');
       const isAllowedToSignIn = profile ? true : false;
-      console.log(isAllowedToSignIn ? 'isAllowedToSignIn' : 'isNOTAllowedToSignIn');
+      // console.log(isAllowedToSignIn ? 'isAllowedToSignIn' : 'isNOTAllowedToSignIn');
       user.displayName = profile.displayname;
       return Promise.resolve(true)
     },
@@ -83,8 +83,8 @@ const options = {
     },
 
     session: async (session, user, sessionToken) => {
-      console.log('SESSION CALLBACK...');
-      console.log('USER: ', user);
+      // console.log('SESSION CALLBACK...');
+      // console.log('USER: ', user);
 
       if (user && user.displayName) {
         session.user.displayName = user.displayName;
@@ -99,8 +99,8 @@ const options = {
     },
 
     jwt: async (token, user, account, profile, isNewUser) => {
-      console.log('JWT CALLBACK...');
-      console.log('USER: ', user);
+      // console.log('JWT CALLBACK...');
+      // console.log('USER: ', user);
 
       // First sign in
       if (user && user.displayName) {
@@ -113,15 +113,15 @@ const options = {
         token.refreshToken = account.refreshToken;
         token.accessToken = account.accessToken;
         token.expiresAt = calcExpiresAt();
-        console.log('JWT INITIALIZE ON SIGN IN');
-        console.log(`now: ${Date.now()}, expiresAt: ${token.expiresAt}, expiresAt - now: ${(token.expiresAt - Date.now()) / 1000}`);
+        // console.log('JWT INITIALIZE ON SIGN IN');
+        // console.log(`now: ${Date.now()}, expiresAt: ${token.expiresAt}, expiresAt - now: ${(token.expiresAt - Date.now()) / 1000}`);
         return Promise.resolve(token);
       }
 
       // Not sure if this is the best approach
       // https://github.com/nextauthjs/next-auth/issues/371
       if (ftTokenIsExpired(token.expiresAt)) {
-        console.log('ACCESS TOKEN IS EXPIRED');
+        // console.log('ACCESS TOKEN IS EXPIRED');
         
         const newToken = await ftTokenRefresh(
           token.accessToken,
@@ -133,7 +133,7 @@ const options = {
         token.expiresAt = calcExpiresAt(); // not really
         return Promise.resolve(token);
       }
-      console.log('ACCESS TOKEN IS NOT EXPIRED');
+      // console.log('ACCESS TOKEN IS NOT EXPIRED');
       return Promise.resolve(token)
     }
   },

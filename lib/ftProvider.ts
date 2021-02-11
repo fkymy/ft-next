@@ -1,4 +1,4 @@
-export default (options) => {
+export default function (options) {
   return {
     id: '42',
     name: '42',

@@ -19,30 +19,30 @@ const client = new AuthorizationCode({
   },
 });
 
-const storeToken = async (accessToken: AccessToken) => {
+async function storeToken(accessToken: AccessToken) {
   store = JSON.stringify(accessToken);
   console.log('=== STORING TOKEN ===\n', store);
-};
+}
 
-const getStoredToken = async () => {
+async function getStoredToken() {
   console.log('=== GETTING STORED TOKEN ===\n', store);
   const accessToken = client.createToken(JSON.parse(store));
   return accessToken;
-};
+}
 
-export const getAuthorizeURL = () => {
+export function getAuthorizeURL() {
   return client.authorizeURL({
     redirect_uri: `${process.env.SITE}/patterns/with-authorization-code/callback`,
     scope: 'public',
     state: 'test-state',
   });
-};
+}
 
-export const hasToken = () => {
+export function hasToken() {
   return store !== undefined;
-};
+}
 
-export const initToken = async (code: string, state: string) => {
+export async function initToken(code: string, state: string) {
   if (!state) {
     throw new Error('state not found');
   }
@@ -54,11 +54,11 @@ export const initToken = async (code: string, state: string) => {
 
   const accessToken = await client.getToken(options as AuthorizationTokenConfig);
   await storeToken(accessToken);
-};
+}
 
 const EXPIRATION_WINDOW_IN_SECONDS = 300;
 
-export const getToken = async () => {
+export async function getToken() {
   let token: string;
   let accessToken = await getStoredToken();
 
@@ -73,8 +73,8 @@ export const getToken = async () => {
   }
 
   return token;
-};
+}
 
-export const revokeToken = () => {
+export function revokeToken() {
   console.log('revoke!');
-};
+}

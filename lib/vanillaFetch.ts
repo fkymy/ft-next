@@ -1,7 +1,7 @@
 import { API_URL } from '@utils/constants';
 import { AccessToken } from '@interfaces/Token';
 
-export const getTokenWithCred = async (): Promise<AccessToken> => {
+export async function getTokenWithCred(): Promise<AccessToken> {
   const uid = process.env.CLIENT_ID;
   const secret = process.env.CLIENT_SECRET;
   const body = 'grant_type=client_credentials' + `&client_id=${uid}` + `&client_secret=${secret}`;
@@ -17,7 +17,7 @@ export const getTokenWithCred = async (): Promise<AccessToken> => {
   return token;
 };
 
-export const getTokenWithCode = async (code: string): Promise<AccessToken> => {
+export async function getTokenWithCode(code: string): Promise<AccessToken> {
   const uid = process.env.CLIENT_ID;
   const secret = process.env.CLIENT_SECRET;
   const body =
@@ -39,7 +39,7 @@ export const getTokenWithCode = async (code: string): Promise<AccessToken> => {
   return token;
 };
 
-export const refreshToken = async (refreshToken: string) => {
+export async function refreshToken(refreshToken: string) {
   const uid = process.env.CLIENT_ID;
   const secret = process.env.CLIENT_SECRET;
   const body =

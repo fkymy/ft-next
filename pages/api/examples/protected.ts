@@ -1,7 +1,7 @@
 // This is an example of to protect an API route
 import { getSession } from 'next-auth/client'
 
-export default async (req, res) => {
+export default async function (req, res) {
   const session = await getSession({ req })
 
   if (session) {

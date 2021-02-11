@@ -19,22 +19,22 @@ const client = new ClientCredentials({
   },
 });
 
-const storeToken = async (accessToken: string) => {
+async function storeToken(accessToken: string) {
   console.log(`persisting access token json: ${accessToken}`);
   // const fullPath = path.join(jsonDir, 'dontdothis.json');
   // fs.writeFileSync(fullPath, json);
   store = accessToken;
-};
+}
 
-const getStoredToken = async () => {
+async function getStoredToken() {
   console.log(`getting persisted access token json: ${store}`);
   // const fullPath = path.join(jsonDir, 'dontdothis.json');
   // const fileContent = fs.readFileSync(fullPath, 'utf8');
   // console.log('getPersistedAccessTokenJSON: ', fileContent);
   return store;
-};
+}
 
-export const initClient = () => {
+export function initClient() {
   const client = new ClientCredentials({
     client: {
       id: process.env['CLIENT_ID'] as string,
@@ -47,9 +47,9 @@ export const initClient = () => {
   });
 
   return client;
-};
+}
 
-const newToken = async (client: ClientCredentials) => {
+async function newToken(client: ClientCredentials) {
   const tokenParams = {
     scope: 'public',
   };
@@ -59,9 +59,9 @@ const newToken = async (client: ClientCredentials) => {
   console.log('newToken fetched: ', JSON.stringify(accessToken));
   await storeToken(JSON.stringify(accessToken));
   return accessToken;
-};
+}
 
-export const getToken = async () => {
+export async function getToken() {
   let token: string;
 
   const storedToken = await getStoredToken();
@@ -83,4 +83,4 @@ export const getToken = async () => {
     }
   }
   return token;
-};
+}

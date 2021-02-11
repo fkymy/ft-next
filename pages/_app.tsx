@@ -23,7 +23,6 @@ function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </SWRConfig>
     </Provider>
-
   );
 }
 
