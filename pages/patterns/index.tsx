@@ -25,12 +25,6 @@ function PatternsPage() {
           <a>with-authorization-code</a>
         </Link>
       </div>
-      <div className="mt-3">
-        <a href="/api/with_sample_data">API: with_sample_data</a>
-      </div>
-      <div>
-        <a href="/api/with_sample_data/profile">API: with_sample_data/profile</a>
-      </div>
     </Layout>
   );
 } 
