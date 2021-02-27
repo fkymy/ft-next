@@ -1,11 +1,9 @@
-import { useState } from 'react'
 import { useSession } from 'next-auth/client'
-import { useRouter } from 'next/router';
-import useSWR, { useSWRInfinite } from 'swr';
+import { useSWRInfinite } from 'swr';
 import Link from 'next/link';
 
-import Layout from '../components/layout'
-import AccessDenied from '../components/access-denied'
+import Layout from '../components/layout';
+import AccessDenied from '../components/access-denied';
 import { CursusUser } from '@interfaces/Cursus';
 import ViewSource from '../components/view-source';
 
@@ -89,73 +87,3 @@ function ApiExamplePage() {
 }
 
 export default ApiExamplePage;
-
-// or simpler paginate
-function Page ({pageIndex}: { pageIndex: number }) {
-  const { data } = useSWR(`/api/examples/cursus_users?page=${pageIndex}`);
-  return (
-    <>
-      {!data && <>
-        <p>loading...</p>
-      </>}
-      {data && <>
-        <div className="body">
-          <h2>/v2/cursus/21/cursus_users?filter[campus_id]=26&sort=-blackholed_at</h2>
-          <ul className="space-y-4">
-            {data.cursusUsers.map((cursusUser) => (
-              cursusUser.blackholed_at && <>
-                <li key={cursusUser.id}>
-                  <div className="flex flex-row space-x-4">
-                    <div>
-                      <img
-                        className="object-cover h-32 w-32"
-                        src={`https://cdn.intra.42.fr/users/small_${cursusUser.user.login}.jpg`}
-                      />
-                    </div>
-                    <div>
-                      <p>login: {cursusUser.user.login}</p>
-                      <p>id: {cursusUser.id}</p>
-                      <p>level: {cursusUser.level}</p>
-                      <p>begin_at: {cursusUser.begin_at}</p>
-                      <p>blackholed_at: {cursusUser.blackholed_at}</p>
-                      <Link href={`/patterns/with-authorization-code/${cursusUser.user.login}`}>
-                        <a className="text-blue-400">Check Profile</a>
-                      </Link>
-                    </div>
-                  </div>
-                </li>
-              </>
-            ))}
-          </ul>
-          <p>{data.xPageTotal}, {data.xPage}</p>
-        </div>
-      </>}
-    </>
-  )
-}
-
-function ApiExamplesPage2 () {
-  const [session, loading] = useSession();
-  const [pageIndex, setPageIndex] = useState(1);
-  const router = useRouter();
-
-  // Session
-  if (typeof window !== 'undefined' && loading) return null;
-  if (!session) return <Layout><AccessDenied/></Layout>;
-
-  return (
-    <Layout>
-      <div className="mb-8">
-        <h1 className="font-semibold text-2xl">42APIテスト2</h1>
-        <p className="text-sm"><em>Cursus Users ブラックホール長い順</em></p>
-      </div>
-      <Page pageIndex={pageIndex}/>
-      <div style={{ display: 'none'}}><Page pageIndex={pageIndex + 1}/></div>
-      <p>{JSON.stringify(router.query)}</p>
-      <p>{router.pathname}</p>
-
-      <button onClick={() => setPageIndex(pageIndex - 1)}>Previous</button>
-      <button onClick={() => setPageIndex(pageIndex + 1)}>Next</button>
-    </Layout>
-  );
-}

@@ -1,4 +1,4 @@
-export default async function fetchJson(...args) {
+export default async function fetchJson(...args: [input: RequestInfo, init?: RequestInit | undefined]) {
   try {
     const res = await fetch(...args);
 
@@ -10,7 +10,7 @@ export default async function fetchJson(...args) {
       return data;
     }
 
-    const err = new Error(res.statusText);
+    const err: any = new Error(res.statusText);
     err.response = res;
     err.data = data;
     throw err;

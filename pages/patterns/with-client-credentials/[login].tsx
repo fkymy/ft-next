@@ -6,11 +6,11 @@ import { Profile } from '@interfaces/User';
 import Layout from '@components/layout';
 import { getToken } from '@lib/clientCredentials';
 
-type Params = {
-  params: {
-    login: string;
-  };
-};
+// type Params = {
+//   params: {
+//     login: string;
+//   };
+// };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   if (!params) {

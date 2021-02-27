@@ -43,10 +43,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
   
     const cursusUsers: CursusUser[] = await ftRes.json();
-    const xPage = parseInt(ftRes.headers.get('x-page') as string);
-    const xPerPage = parseInt(ftRes.headers.get('x-per-page') as string);
-    const xTotal = parseInt(ftRes.headers.get('x-total') as string);
-    const xPageTotal = Math.ceil(xTotal / xPerPage);
+    // const xPage = parseInt(ftRes.headers.get('x-page') as string);
+    // const xPerPage = parseInt(ftRes.headers.get('x-per-page') as string);
+    // const xTotal = parseInt(ftRes.headers.get('x-total') as string);
+    // const xPageTotal = Math.ceil(xTotal / xPerPage);
     
     res.status(200).json(cursusUsers);
   } catch (err) {

@@ -11,7 +11,7 @@ const ViewSource = ({ pathname }) => (
     className={styles.svg}
   >
     <a
-      title="View Source"
+      title={`View Source ${pathname}`}
       href={`https://github.com/fkymy/42API-client/issues`}
     >
       <path d="M0 0l115 115h15l12 27 108 108V0z" />

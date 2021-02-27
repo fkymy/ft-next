@@ -9,11 +9,11 @@ import Layout from '@components/layout';
 import { hasToken, getToken } from 'lib/authorizationCode';
 import { Redirect, serverRedirect } from 'utils/redirects';
 
-type Params = {
-  params: {
-    login: string;
-  };
-};
+// type Params = {
+//   params: {
+//     login: string;
+//   };
+// };
 
 const redirect: Redirect = {
   href: '/patterns/with-authorization-code',

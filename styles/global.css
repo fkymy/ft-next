@@ -1,12 +1,10 @@
 @tailwind base;
 
-/* Custom base styles */
 html,
 body {
 }
 
 a {
-  /* font-weight: 500; */
   color: #0366d6;
 }
 
@@ -14,7 +12,7 @@ a:hover,
 a:focus,
 a:active {
   text-decoration: underline;
-} */
+}
 
 hr {
   @apply mt-10;
@@ -30,20 +28,14 @@ iframe {
   filter: invert(1);
 }
 
-/* Start purging... */
 @tailwind components;
-/* Stop purging. */
 
-/* Custom component styles */
 .btn-blue {
   @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
 }
 
-/* Start purging... */
 @tailwind utilities;
-/* Stop purging. */
 
-/* Custom utilities */
 @layer utilities {
   @responsive {
   }

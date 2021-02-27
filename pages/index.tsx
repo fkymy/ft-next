@@ -7,7 +7,7 @@ function IndexPage() {
       <div className="hidden md:block">
         <ViewSource pathname=''/>
       </div>
-      <h1 className="font-semibold text-2xl">Hello 42API 👋</h1>
+      <h1 className="font-semibold text-2xl">Hello 42API</h1>
     </Layout>
   );
 }

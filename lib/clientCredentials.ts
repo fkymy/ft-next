@@ -1,11 +1,11 @@
 import { ClientCredentials } from 'simple-oauth2';
-import fs from 'fs';
-import path from 'path';
+// import fs from 'fs';
+// import path from 'path';
 
 import { API_URL } from '@utils/constants';
 
 // Globals (Fake Persistence)
-const jsonDir = path.join(process.cwd(), 'utils');
+// const jsonDir = path.join(process.cwd(), 'utils');
 let store: string;
 
 const client = new ClientCredentials({
