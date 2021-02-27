@@ -1,3 +1,5 @@
-Playing around with 42's API with Next.js, SWR and Tailwind.
+42's API with Next.js, SWR and Tailwind.
 
-Feel free to contribute!
+- Signed cookie and JWT auth without a backend
+- Data fetching using SWR
+- Data fetching using Google Sheets hook

@@ -12,7 +12,7 @@ const ViewSource = ({ pathname }) => (
   >
     <a
       title={`View Source ${pathname}`}
-      href={`https://github.com/fkymy/42API-client/issues`}
+      href={`https://github.com/fkymy/ft-next`}
     >
       <path d="M0 0l115 115h15l12 27 108 108V0z" />
       <path
